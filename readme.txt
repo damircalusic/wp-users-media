@@ -1,4 +1,4 @@
-=== WP Basic Elements ===
+=== WP Users Media ===
 Contributors: WebKreativ
 Tags: user, users, wp admin, media, files, attachments, photos, photo, gallery, galleries
 Donate link: 
@@ -35,6 +35,9 @@ Use the `support` link in the menu above of this plugins homepage on wordpress.o
 1. Coming Soon
 
 == Changelog ==
+= 1.0.1 =
+* Name Bug Fix
+
 = 1.0.0 =
 * First release
 
