@@ -3,7 +3,7 @@
 * Plugin Name: WP Users Media
 * Plugin URI: http://www.wknet.com/wp-users-media/
 * Description: WP Users Media is a WordPress plugin that displays only the current users media files and attachments in WP Admin.
-* Version: 1.0.0
+* Version: 1.0.2
 * Author: Damir Calusic
 * Author URI: http://www.damircalusic.com/
 * License: GPLv2

@@ -4,7 +4,7 @@ Tags: user, users, wp admin, media, files, attachments, photos, photo, gallery, 
 Donate link: 
 Requires at least: 3.0
 Tested up to: 3.9.1
-Stable tag: 1.0.0
+Stable tag: 1.0.2
 License: GPLv2
 
 WP Users Media is a WordPress plugin that displays only the current users media files and attachments in WP Admin.
@@ -35,6 +35,9 @@ Use the `support` link in the menu above of this plugins homepage on wordpress.o
 1. Coming Soon
 
 == Changelog ==
+= 1.0.2 =
+* Small revision bug fix
+
 = 1.0.1 =
 * Name Bug Fix
 
