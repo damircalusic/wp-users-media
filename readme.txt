@@ -3,7 +3,7 @@ Contributors: WebKreativ, khromov
 Tags: user, users, wp admin, media, files, attachments, photos, photo, gallery, galleries
 Donate link: 
 Requires at least: 3.0
-Tested up to: 4.0
+Tested up to: 4.1
 Stable tag: 2.0.1
 License: GPLv2
 
