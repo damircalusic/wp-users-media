@@ -156,10 +156,82 @@ function um_recount_attachments($counts_in){
 	return $counts;
 };
 
+/* 
+* Preps for options dropdown in media library to choose roles of attachements etc.
+* Test mode ONLY!
+*/
+function wpusme_script_filter(){
+	if(current_user_can('manage_options') && is_admin()){
+	?>
+    <script>
+		jQuery(document).ready(function($){
+    
+			if (!window.wp || !window.wp.media) {
+				return;
+			}
+			
+			var media = window.wp.media;
+			
+			var tagFilter = media.view.AttachmentFilters.extend({
+				createFilters: function() {
+					var filters = {};
+						
+					filters.all = {
+						text: 'Everyones attachments',
+						props: {
+							tag: null,
+							type:    null,
+							uploadedTo: null,
+							orderby: 'date',
+							order:   'DESC'
+						},
+						priority: 15
+					};
+				
+					filters.administrator = {
+						text:  'Mine attachments',
+						props: {
+							tag: null,
+							type:    null,
+							uploadedTo: null,
+							orderby: 'date',
+							order:   'DESC'
+						},
+						priority: 75
+					};
+					
+					this.filters = filters;
+				}
+			});
+			
+			// backup the method
+			var orig = wp.media.view.AttachmentsBrowser;
+			
+			wp.media.view.AttachmentsBrowser = wp.media.view.AttachmentsBrowser.extend({
+				createToolbar: function() {
+					// call the original method
+					orig.prototype.createToolbar.apply(this,arguments);
+					
+					// add our custom filter
+					this.toolbar.set('tags', new tagFilter({
+						controller: this.controller,
+						model:      this.collection.props,
+						// controls the position, left align if < 0, right align otherwise
+						priority: 0
+					}).render() );
+				}
+			});
+		});
+    </script>
+	<?php
+	}
+}
+
 /* Add actions */
 add_action('admin_menu', 'wpusersmedia_menu');
 add_action('pre_get_posts', 'um_filter_media_files');
 if(get_option('wpusmesidemenu') == '1'){ add_action('admin_menu', 'wpusme_shortcut'); }
+add_action('admin_head', 'wpusme_script_filter');
 
 /* Add Filters*/
 add_filter('wp_count_attachments', 'um_recount_attachments');
