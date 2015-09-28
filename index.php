@@ -57,20 +57,12 @@ function wpusme_settings_page() {
                 <h1><?php _e('WP Users Media','wpbe'); ?></h1>
                 <p class="about-description"><?php _e('When you change something do not forget to click on this blue Save Changes button below this text.','wpusme'); ?></p>
                 <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Save Changes','wpusme'); ?>"></p>
-                <div class="welcome-panel-column-container">
-                    <div class="welcome-panel-column"></div>
-                    <div class="welcome-panel-column"></div>
-                    <div class="welcome-panel-column welcome-panel-last"></div>
-                </div>
             </div>
-        </div>
-        
+        </div><!-- #welcome-panel -->
         <div id="dashboard-widgets-wrap">
         	<div id="dashboard-widgets" class="metabox-holder">
-            	
                 <div id="postbox-container-1" class="postbox-container">
                     <div id="normal-sortables" class="meta-box-sortables ui-sortable">
-                    
                     	<div id="wpcore" class="postbox">
                         	<div class="handlediv" data-src="wpcore" title="<?php _e('Toggle content','wpusme'); ?>"><br></div>
                             <h3 class="hndle"><span><?php _e('Options','wpusme'); ?></span></h3>
@@ -90,16 +82,13 @@ function wpusme_settings_page() {
                                             </label>
                                         </li>
                                     </ul>
-                                 </div>
-                          	</div>
-						</div>
-                
-                    </div>
-            	</div>
-            
-            </div>
-        </div>
-        
+                                 </div><!-- .main -->
+                          	</div><!-- .inside -->
+						</div><!-- #wpcore -->
+                    </div><!-- #normal-sortables -->
+            	</div><!-- #postbox-container-1 -->
+            </div><!-- #dashboard-widgets -->
+        </div><!-- #dashboard-widgets-wrap -->
     </form>
     <script>jQuery(document).ready(function( $ ) { $('.handlediv').click(function() { var div = $(this).attr("data-src"); $("#" + div).toggleClass("closed"); }); });</script>
 <?php 
