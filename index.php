@@ -101,19 +101,7 @@ function wpusme_settings_page() {
         </div>
         
     </form>
-    <script>
-		jQuery(document).ready(function( $ ) {
-			$('.handlediv').click(function() {
-				var div = $(this).attr("data-src");
-				if($("#" + div).hasClass("closed")){
-					$("#" + div).removeClass("closed");
-				}
-				else{
-					$("#" + div).addClass("closed");
-				}
-			});
-		});
-	</script>
+    <script>jQuery(document).ready(function( $ ) { $('.handlediv').click(function() { var div = $(this).attr("data-src"); $("#" + div).toggleClass("closed"); }); });</script>
 <?php 
 }  
 
