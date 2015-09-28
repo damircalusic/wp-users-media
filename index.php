@@ -133,6 +133,10 @@ function wpusme_recount_attachments($counts_in){
 	return $counts;
 };
 
+/* 
+* Preps for options dropdown in media library to choose roles of attachements etc.
+* Test mode ONLY!
+*/
 function wpusme_script_filter(){
 	if(current_user_can('manage_options') && is_admin()){
 	?>
