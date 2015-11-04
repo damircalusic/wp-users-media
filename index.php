@@ -3,7 +3,7 @@
  * Plugin Name: WP Users Media
  * Plugin URI: -
  * Description: WP Users Media is a WordPress plugin that displays only the current users media files and attachments in WP Admin.
- * Version: 3.0.1
+ * Version: 4.0.0
  * Author: Damir Calusic
  * Author URI: https://www.damircalusic.com/
  * License: GPLv2
@@ -27,7 +27,7 @@
 */
 
 /* Define the version of the plugin */
-define('WPUSME_VERSION', '3.0.1');
+define('WPUSME_VERSION', '4.0.0');
 
 /* Load plugin languages */
 load_plugin_textdomain('wpusme', false, basename( dirname( __FILE__ ) ) . '/languages');
@@ -101,6 +101,7 @@ function wpusme_shortcut(){
 
 /* Filter attachments for the specific user */
 function wpusme_filter_media_files($wp_query){
+	global $wp_query;
 	global $current_user;
 		
 	if(get_option('wpusmeadminself') == '1'){
