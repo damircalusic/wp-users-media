@@ -45,7 +45,7 @@ msgid "Add shortcut for WP Users Media in the sidebar menu."
 msgstr ""
 
 #: index.php:89
-msgid "Enable so Admins can only view their own attachments."
+msgid "Enable so Admins only can view their own attachments."
 msgstr ""
 
 #. Plugin URI of the plugin/theme
