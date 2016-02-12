@@ -3,7 +3,7 @@
  * Plugin Name: WP Users Media
  * Plugin URI: -
  * Description: WP Users Media is a WordPress plugin that displays only the current users media files and attachments in WP Admin.
- * Version: 4.0.0
+ * Version: 3.0.4
  * Author: Damir Calusic
  * Author URI: https://www.damircalusic.com/
  * License: GPLv2
@@ -27,13 +27,13 @@
 */
 
 /* Define the version of the plugin */
-define('WPUSME_VERSION', '4.0.0');
+define('WPUSERSMEDIA_VERSION', '3.0.3');
 
 /* Load plugin languages */
 load_plugin_textdomain('wpusme', false, basename( dirname( __FILE__ ) ) . '/languages');
 
 /* Add menu items to the WP Admin menues */
-function wpusme_menu() {
+function wpusersmedia_menu() {
 	add_action('admin_init', 'register_wpusme_settings');
 	add_submenu_page('options-general.php', 'WP Users Media', 'WP Users Media', 'manage_options', 'wpusme_settings_page', 'wpusme_settings_page');
 }
@@ -51,18 +51,26 @@ function wpusme_settings_page() {
         <?php settings_fields('wpusme-settings-group'); ?>
         <div id="welcome-panel" class="welcome-panel">
             <label style="position:absolute;top:5px;right:10px;padding:20px 15px 0 3px;font-size:13px;text-decoration:none;line-height:1;">
-            	<?php _e('Version','wpusme'); ?> <?php echo WPUSME_VERSION; ?>
+            	<?php _e('Version', 'wpusme'); ?> <?php echo WPUSERSMEDIA_VERSION; ?>
             </label>
             <div class="welcome-panel-content">
-                <h1><?php _e('WP Users Media','wpusme'); ?></h1>
+                <h1><?php _e('WP Users Media','wpbe'); ?></h1>
                 <p class="about-description"><?php _e('When you change something do not forget to click on this blue Save Changes button below this text.','wpusme'); ?></p>
                 <p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Save Changes','wpusme'); ?>"></p>
+                <div class="welcome-panel-column-container">
+                    <div class="welcome-panel-column"></div>
+                    <div class="welcome-panel-column"></div>
+                    <div class="welcome-panel-column welcome-panel-last"></div>
+                </div>
             </div>
-        </div><!-- #welcome-panel -->
+        </div>
+        
         <div id="dashboard-widgets-wrap">
         	<div id="dashboard-widgets" class="metabox-holder">
+            	
                 <div id="postbox-container-1" class="postbox-container">
                     <div id="normal-sortables" class="meta-box-sortables ui-sortable">
+                    
                     	<div id="wpcore" class="postbox">
                         	<div class="handlediv" data-src="wpcore" title="<?php _e('Toggle content','wpusme'); ?>"><br></div>
                             <h3 class="hndle"><span><?php _e('Options','wpusme'); ?></span></h3>
@@ -82,15 +90,30 @@ function wpusme_settings_page() {
                                             </label>
                                         </li>
                                     </ul>
-                                 </div><!-- .main -->
-                          	</div><!-- .inside -->
-						</div><!-- #wpcore -->
-                    </div><!-- #normal-sortables -->
-            	</div><!-- #postbox-container-1 -->
-            </div><!-- #dashboard-widgets -->
-        </div><!-- #dashboard-widgets-wrap -->
+                                 </div>
+                          	</div>
+						</div>
+                
+                    </div>
+            	</div>
+            
+            </div>
+        </div>
+        
     </form>
-    <script>jQuery(document).ready(function( $ ) { $('.handlediv').click(function() { var div = $(this).attr("data-src"); $("#" + div).toggleClass("closed"); }); });</script>
+    <script>
+		jQuery(document).ready(function( $ ) {
+			$('.handlediv').click(function() {
+				var div = $(this).attr("data-src");
+				if($("#" + div).hasClass("closed")){
+					$("#" + div).removeClass("closed");
+				}
+				else{
+					$("#" + div).addClass("closed");
+				}
+			});
+		});
+	</script>
 <?php 
 }  
 
@@ -100,23 +123,26 @@ function wpusme_shortcut(){
 }
 
 /* Filter attachments for the specific user */
-function wpusme_filter_media_files($wp_query){
-	global $wp_query;
+function um_filter_media_files($wp_query){
 	global $current_user;
-		
-	if(get_option('wpusmeadminself') == '1'){
-		if(current_user_can('manage_options') && (is_admin() && $wp_query->query['post_type'] === 'attachment')){
+	$wp_query = $wp_query;
+	
+	// Check so the $wp_query->query['post_type'] isset
+	if(isset($wp_query->query['post_type'])){
+		if(get_option('wpusmeadminself') == '1'){
+			if(current_user_can('manage_options') && (is_admin() && $wp_query->query['post_type'] === 'attachment')){
+				$wp_query->set('author', $current_user->ID);
+			}
+		}
+	
+		if(!current_user_can('manage_options') && (is_admin() && $wp_query->query['post_type'] === 'attachment')){
 			$wp_query->set('author', $current_user->ID);
 		}
-	}
-
-	if(!current_user_can('manage_options') && (is_admin() && $wp_query->query['post_type'] === 'attachment')){
-		$wp_query->set('author', $current_user->ID);
 	}
 }
 
 /* Recount attachments for the specific user */
-function wpusme_recount_attachments($counts_in){
+function um_recount_attachments($counts_in){
 	global $wpdb;
 	global $current_user;
 
@@ -206,10 +232,10 @@ function wpusme_script_filter(){
 }
 
 /* Add actions */
-add_action('admin_menu', 'wpusme_menu');
-add_action('pre_get_posts', 'wpusme_filter_media_files');
+add_action('admin_menu', 'wpusersmedia_menu');
+add_action('pre_get_posts', 'um_filter_media_files');
 if(get_option('wpusmesidemenu') == '1'){ add_action('admin_menu', 'wpusme_shortcut'); }
-add_action('admin_head', 'wpusme_script_filter');
+//add_action('admin_head', 'wpusme_script_filter');
 
 /* Add Filters*/
-add_filter('wp_count_attachments', 'wpusme_recount_attachments');
+add_filter('wp_count_attachments', 'um_recount_attachments');
