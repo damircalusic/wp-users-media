@@ -27,7 +27,7 @@
 */
 
 /* Define the version of the plugin */
-define('WPUSERSMEDIA_VERSION', '3.0.3');
+define('WPUSERSMEDIA_VERSION', '3.0.4');
 
 /* Load plugin languages */
 load_plugin_textdomain('wpusme', false, basename( dirname( __FILE__ ) ) . '/languages');
